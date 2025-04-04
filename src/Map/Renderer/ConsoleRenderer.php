@@ -14,12 +14,34 @@ class ConsoleRenderer implements RendererInterface
         for ($i = 0; $i < $height; $i++) {
             for ($j = 0; $j < $width; $j++) {
                 $coordinate = new Coordinate($i, $j);
-                if (!$map->isOccupiedCoordinate($coordinate)) {
-                    echo "🏾";
+                if ($map->isEmptyCoordinate($coordinate)) {
+                    echo "\t🏾";
                 } else {
-                    echo "👽";
+                    $entity = $map->getEntity($coordinate);
+                    $entityName = basename(str_replace('\\', '/', $entity::class));
+                    $icon = $this->getIcon($entityName);
+                    echo "\t$icon";
                 }
             }
+            print("\n");
         }
+        echo PHP_EOL;
+    }
+
+    public function getIcon(string $className): string
+    {
+        $icons = [
+            "Rock" => "⛰️",
+            "Deer" => "🦌",
+            "Grass" => "🌾",
+            "Tree" => "🌳",
+            "Wolf" => "🐺"
+        ];
+
+        if (!array_key_exists($className, $icons)) {
+            return "👽";
+        }
+
+        return $icons[$className];
     }
 }

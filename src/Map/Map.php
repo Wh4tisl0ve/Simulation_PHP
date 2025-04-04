@@ -2,9 +2,9 @@
 
 namespace App\Map;
 
+use Exception;
 use App\Entity\Coordinate;
 use App\Entity\Entity;
-use Exception;
 
 class Map
 {
@@ -21,7 +21,7 @@ class Map
 
     public function addEntity(Coordinate $coordinate, Entity $entity): void
     {
-        if ($this->isOccupiedCoordinate($coordinate)) {
+        if (!$this->isEmptyCoordinate($coordinate)) {
             throw new Exception('Координата занята!');
         }
         $this->entities[$coordinate->getHash()] = $entity;
@@ -29,19 +29,43 @@ class Map
 
     public function getEntity(Coordinate $coordinate): Entity
     {
-        if ($this->isOccupiedCoordinate($coordinate)) {
+        if ($this->isEmptyCoordinate($coordinate)) {
             throw new Exception('Такой координаты нет');
         }
         return $this->entities[$coordinate->getHash()];
     }
 
-    public function isOccupiedCoordinate(Coordinate $coordinate): bool
+    public function removeEntity(Coordinate $coordinate): void
     {
-        return array_key_exists($coordinate->getHash(), $this->entities);
+        if ($this->isEmptyCoordinate($coordinate)) {
+            throw new Exception('Такой координаты нет');
+        }
+        unset($this->entities[$coordinate->getHash()]);
     }
 
     public function getSize(): array
     {
         return [$this->height, $this->width];
+    }
+
+    public function getEmptyCoordinate(): Coordinate
+    {
+        [$height, $width] = $this->getSize();
+
+        for ($i = 0; $i < $height; $i++) {
+            for ($j = 0; $j < $width; $j++) {
+                $coordinate = new Coordinate($i, $j);
+                if ($this->isEmptyCoordinate($coordinate)) {
+                    return $coordinate;
+                }
+            }
+        }
+
+        throw new Exception('Нет пустых координат на карте');
+    }
+
+    public function isEmptyCoordinate(Coordinate $coordinate): bool
+    {
+        return !array_key_exists($coordinate->getHash(), $this->entities);
     }
 }
