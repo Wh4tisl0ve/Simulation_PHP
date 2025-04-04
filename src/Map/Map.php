@@ -3,6 +3,8 @@
 namespace App\Map;
 
 use Exception;
+use Generator;
+use App\Entity\Dynamic\Creature;
 use App\Entity\Coordinate;
 use App\Entity\Entity;
 
@@ -66,6 +68,15 @@ class Map
             return $coordinate;
         } else {
             return $this->getEmptyCoordinate();
+        }
+    }
+
+    public function getCreatures(): Generator
+    {
+        foreach ($this->entities as $entity) {
+            if ($entity instanceof Creature) {
+                yield $entity;
+            }
         }
     }
 
