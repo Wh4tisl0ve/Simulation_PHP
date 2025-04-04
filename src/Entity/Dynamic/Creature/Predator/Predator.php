@@ -8,6 +8,12 @@ abstract class Predator extends Creature
 {
     protected int $powerAttack;
 
+    function __construct(int $healthPoint, int $speed, int $powerAttack)
+    {
+        parent::__construct($healthPoint, $speed);
+        $this->powerAttack = $powerAttack;
+    }
+
     public function makeMove(): void
     {
         return;
