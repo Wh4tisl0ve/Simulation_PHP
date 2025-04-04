@@ -1,5 +1,7 @@
 {
-  "Predator" : 0.2,
-  "Herbivore" : 0.3,
-  "Tree" : 0.3
+  "Rock": 0.3,
+  "Deer": 0.2,
+  "Grass": 0.3,
+  "Tree": 0.1,
+  "Wolf": 0.1
 }

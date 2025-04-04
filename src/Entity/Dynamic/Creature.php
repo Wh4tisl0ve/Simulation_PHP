@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\Dynamic\Creature;
+namespace App\Entity\Dynamic;
 
 use App\Entity\Entity;
 

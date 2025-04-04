@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Entity\Dynamic\Creature\Predator;
+namespace App\Entity\Dynamic\Predator;
 
-use App\Entity\Dynamic\Creature\Creature;
+use App\Entity\Dynamic\Creature;
 
 abstract class Predator extends Creature
 {

@@ -3,7 +3,7 @@
 namespace App\Action\SpawnAction;
 
 use App\Entity\Entity;
-use App\Entity\Dynamic\Creature\Predator\Wolf;
+use App\Entity\Dynamic\Predator\Wolf;
 
 class WolfSpawnAction extends SpawnAction
 {

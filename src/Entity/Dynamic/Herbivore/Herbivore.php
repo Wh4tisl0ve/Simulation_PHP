@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Entity\Dynamic\Creature\Herbivore;
+namespace App\Entity\Dynamic\Herbivore;
 
-use App\Entity\Dynamic\Creature\Creature;
+use App\Entity\Dynamic\Creature;
 
 class Herbivore extends Creature
 {

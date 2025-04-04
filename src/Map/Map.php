@@ -51,17 +51,22 @@ class Map
     public function getEmptyCoordinate(): Coordinate
     {
         [$height, $width] = $this->getSize();
+        $mapSquare = $height * $width;
 
-        for ($i = 0; $i < $height; $i++) {
-            for ($j = 0; $j < $width; $j++) {
-                $coordinate = new Coordinate($i, $j);
-                if ($this->isEmptyCoordinate($coordinate)) {
-                    return $coordinate;
-                }
-            }
+        $x = rand(0, $height);
+        $y = rand(0, $width);
+
+        $coordinate = new Coordinate($x, $y);
+
+        if ($mapSquare == count($this->entities)) {
+            throw new Exception('Нет пустых координат на карте');
         }
 
-        throw new Exception('Нет пустых координат на карте');
+        if ($this->isEmptyCoordinate($coordinate)) {
+            return $coordinate;
+        } else {
+            return $this->getEmptyCoordinate();
+        }
     }
 
     public function isEmptyCoordinate(Coordinate $coordinate): bool

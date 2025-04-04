@@ -2,8 +2,8 @@
 
 namespace App\Action\SpawnAction;
 
+use App\Entity\Dynamic\Herbivore\Deer;
 use App\Entity\Entity;
-use App\Entity\Dynamic\Creature\Herbivore\Deer;
 
 class DeerSpawnAction extends SpawnAction
 {
