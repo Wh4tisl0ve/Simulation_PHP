@@ -26,6 +26,7 @@ class Simulation
         while (true) {
             $this->renderer->render($this->map);
             $this->nextTurn();
+            sleep(3);
         }
     }
 
