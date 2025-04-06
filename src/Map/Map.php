@@ -4,37 +4,37 @@ namespace App\Map;
 
 use Exception;
 use Generator;
-use App\Entity\Dynamic\Creature;
+use App\Entity\Dynamic\AbstractCreature;
 use App\Entity\Coordinate;
-use App\Entity\Entity;
+use App\Entity\AbstractEntity;
 
 class Map
 {
-    private array $entities;
+    private EntityStorage $entities;
     private int $height;
     private int $width;
 
     function __construct(int $height, int $width)
     {
-        $this->entities = [];
+        $this->entities = new EntityStorage;
         $this->height = $height;
         $this->width = $width;
     }
 
-    public function addEntity(Coordinate $coordinate, Entity $entity): void
+    public function addEntity(Coordinate $coordinate, AbstractEntity $entity): void
     {
         if (!$this->isEmptyCoordinate($coordinate)) {
             throw new Exception('Координата занята!');
         }
-        $this->entities[$coordinate->getHash()] = $entity;
+        $this->entities[$coordinate] = $entity;
     }
 
-    public function getEntity(Coordinate $coordinate): Entity
+    public function getEntity(Coordinate $coordinate): AbstractEntity
     {
         if ($this->isEmptyCoordinate($coordinate)) {
             throw new Exception('Такой координаты нет');
         }
-        return $this->entities[$coordinate->getHash()];
+        return $this->entities[$coordinate];
     }
 
     public function removeEntity(Coordinate $coordinate): void
@@ -42,7 +42,7 @@ class Map
         if ($this->isEmptyCoordinate($coordinate)) {
             throw new Exception('Такой координаты нет');
         }
-        unset($this->entities[$coordinate->getHash()]);
+        $this->entities->detach($coordinate);
     }
 
     public function getSize(): array
@@ -74,7 +74,7 @@ class Map
     public function getCreatures(): Generator
     {
         foreach ($this->entities as $entity) {
-            if ($entity instanceof Creature) {
+            if ($entity instanceof AbstractCreature) {
                 yield $entity;
             }
         }
@@ -82,6 +82,6 @@ class Map
 
     public function isEmptyCoordinate(Coordinate $coordinate): bool
     {
-        return !array_key_exists($coordinate->getHash(), $this->entities);
+        return !($this->entities->contains($coordinate));
     }
 }
