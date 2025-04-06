@@ -3,13 +3,13 @@
 namespace App\Action;
 
 use App\Map\Map;
-use App\WayFinder\WayFinder;
+use App\WayFinder\AbstractWayFinder;
 
-class MoveAction extends Action
+class MoveAction extends AbstractAction
 {
-    private WayFinder $wayFinder;
+    private AbstractWayFinder $wayFinder;
 
-    function __construct(Map $map, WayFinder $wayFinder)
+    function __construct(Map $map, AbstractWayFinder $wayFinder)
     {
         parent::__construct($map);
         $this->wayFinder = $wayFinder;
@@ -18,9 +18,9 @@ class MoveAction extends Action
     public function perform(): void
     {
         $creatures = $this->map->getCreatures();
-        foreach ($creatures as $creature) {
-            $way = $this->wayFinder->findWay();
-            $creature->makeMove();
+        foreach ($creatures as $coordinate => $creature) {
+            $way = $this->wayFinder->findWay($coordinate);
+            $creature->makeMove($way);
         }
     }
 }

@@ -5,7 +5,7 @@ namespace App\Action;
 
 use App\Map\Map;
 
-abstract class Action
+abstract class AbstractAction
 {
     protected Map $map;
 

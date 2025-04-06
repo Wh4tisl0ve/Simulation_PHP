@@ -3,11 +3,11 @@
 namespace App\Action\SpawnAction;
 
 use Exception;
-use App\Entity\Entity;
-use App\Action\Action;
+use App\Entity\AbstractEntity;
+use App\Action\AbstractAction;
 use App\Map\Map;
 
-abstract class SpawnAction extends Action
+abstract class AbstractSpawnAction extends AbstractAction
 {
     private float $spawnRate;
 
@@ -40,5 +40,5 @@ abstract class SpawnAction extends Action
         return floor(($this->spawnRate * $mapSquare));
     }
 
-    public abstract function getEntity(): Entity;
+    public abstract function getEntity(): AbstractEntity;
 }

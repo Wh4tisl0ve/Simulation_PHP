@@ -2,11 +2,11 @@
 
 namespace App\Action\SpawnAction;
 
-use App\Entity\Entity;
+use App\Entity\AbstractEntity;
 use App\Entity\Static\Tree;
 
-class TreeSpawnAction extends SpawnAction{
-    public function getEntity(): Entity
+class TreeSpawnAction extends AbstractSpawnAction{
+    public function getEntity(): AbstractEntity
     {
         return new Tree();
     }
