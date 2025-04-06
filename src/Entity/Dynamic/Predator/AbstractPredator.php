@@ -2,9 +2,9 @@
 
 namespace App\Entity\Dynamic\Predator;
 
-use App\Entity\Dynamic\Creature;
+use App\Entity\Dynamic\AbstractCreature;
 
-abstract class Predator extends Creature
+abstract class AbstractPredator extends AbstractCreature
 {
     protected int $powerAttack;
 
@@ -14,7 +14,7 @@ abstract class Predator extends Creature
         $this->powerAttack = $powerAttack;
     }
 
-    public function makeMove(): void
+    public function makeMove(array $way): void
     {
         return;
     }

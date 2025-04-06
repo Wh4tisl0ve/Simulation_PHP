@@ -2,4 +2,4 @@
 
 namespace App\Entity\Dynamic\Herbivore;
 
-class Deer extends Herbivore{}
+class Deer extends AbstractHerbivore{}

@@ -2,9 +2,9 @@
 
 namespace App\Entity\Dynamic;
 
-use App\Entity\Entity;
+use App\Entity\AbstractEntity;
 
-abstract class Creature extends Entity
+abstract class AbstractCreature extends AbstractEntity
 {
     protected int $healthPoint;
     protected int $speed;
@@ -15,5 +15,5 @@ abstract class Creature extends Entity
         $this->speed = $speed;
     }
 
-    public abstract function makeMove();
+    public abstract function makeMove(array $way): void;
 }

@@ -17,9 +17,4 @@ class Coordinate
     {
         return [$this->x, $this->y];
     }
-
-    public function getHash(): string
-    {
-        return hash('sha256', "Coordinate($this->x, $this->y)");
-    }
 }

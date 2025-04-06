@@ -2,4 +2,4 @@
 
 namespace App\Entity\Dynamic\Predator;
 
-class Wolf extends Predator{}
+class Wolf extends AbstractPredator{}

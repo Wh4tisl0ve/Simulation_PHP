@@ -3,4 +3,4 @@
 namespace App\Entity;
 
 
-class Entity{}
+abstract class AbstractEntity{}
