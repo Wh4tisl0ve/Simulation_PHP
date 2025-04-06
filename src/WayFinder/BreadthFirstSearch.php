@@ -2,14 +2,16 @@
 
 namespace App\WayFinder;
 
-class BreadthFirstSearch extends WayFinder
+use App\Entity\Coordinate;
+
+class BreadthFirstSearch extends AbstractWayFinder
 {
-    public function findWay(): array
+    public function findWay(Coordinate $startCoordinate): array
     {
         return [];
     }
 
-    public function getMoves(): array
+    public function getMoves(Coordinate $coordinate): array
     {
         return [];
     }
