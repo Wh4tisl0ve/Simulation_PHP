@@ -27,7 +27,7 @@ abstract class AbstractSpawnAction extends AbstractAction
                 $entity = $this->getEntity();
 
                 $this->map->addEntity($coordinate, $entity);
-            } catch (Exception $exc) {
+            } catch (Exception) {
                 break;
             }
         }
