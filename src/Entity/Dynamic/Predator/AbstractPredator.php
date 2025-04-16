@@ -3,10 +3,14 @@
 namespace App\Entity\Dynamic\Predator;
 
 use App\Entity\Dynamic\AbstractCreature;
+use App\Entity\Dynamic\Herbivore\AbstractHerbivore;
+use App\Map\Map;
+
 
 abstract class AbstractPredator extends AbstractCreature
 {
     protected int $powerAttack;
+    protected string $food = AbstractHerbivore::class;
 
     function __construct(int $healthPoint, int $speed, int $powerAttack)
     {
@@ -14,7 +18,7 @@ abstract class AbstractPredator extends AbstractCreature
         $this->powerAttack = $powerAttack;
     }
 
-    public function makeMove(array $way): void
+    public function makeMove(array $way, Map $map): void
     {
         return;
     }
