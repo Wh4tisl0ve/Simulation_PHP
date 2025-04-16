@@ -25,7 +25,7 @@ class Simulation
         $this->performActions($this->initActions);
         while (true) {
             $this->renderer->render($this->map);
-            $this->nextTurn();
+            $this->performActions($this->turnActions);
             sleep(3);
         }
     }
@@ -33,11 +33,6 @@ class Simulation
     public function pauseSimulation(): void
     {
         return;
-    }
-
-    public function nextTurn(): void
-    {
-        $this->performActions($this->turnActions);
     }
 
     private function performActions(array $actions): void
