@@ -6,18 +6,22 @@ use App\Entity\Coordinate;
 
 class BreadthFirstSearch extends AbstractWayFinder
 {
-    public function findWay(Coordinate $startCoordinate): array
+    public function findWay(Coordinate $startCoordinate, Coordinate $goalCoordinate): array
     {
-        return [];
-    }
+        $visited = [];
+        $searchQueue = [];
+        $searchQueue[] = $startCoordinate;
 
-    public function getMoves(Coordinate $coordinate): array
-    {
-        return [];
-    }
+        while (!$searchQueue) {
+            $coordinate = array_pop($searchQueue);
 
-    public function getGoals(): array
-    {
+            if ($coordinate === $goalCoordinate) {
+                # build path
+                return [];
+            }
+
+            $moves = $this->getMoves($coordinate);
+        }
         return [];
     }
 }

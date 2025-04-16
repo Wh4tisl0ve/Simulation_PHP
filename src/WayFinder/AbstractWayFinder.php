@@ -14,9 +14,17 @@ abstract class AbstractWayFinder
         $this->map = $map;
     }
 
-    public abstract function findWay(Coordinate $startCoordinate): array;
+    public abstract function findWay(Coordinate $startCoordinate, Coordinate $goalCoordinate): array;
 
-    public abstract function getMoves(Coordinate $coordinate): array;
+    public function getMoves(Coordinate $coordinate): array
+    {
+        [$x, $y] = $coordinate->getCoordinates();
 
-    public abstract function getGoals(): array;
+        $coordinateUp = new Coordinate($x, $y + 1);
+        $coordinateDown = new Coordinate($x, $y - 1);
+        $coordinateRight = new Coordinate($x + 1, $y);
+        $coordinateLeft = new Coordinate($x - 1, $y);
+
+        return [$coordinateUp, $coordinateDown, $coordinateRight, $coordinateLeft];
+    }
 }
