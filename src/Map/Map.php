@@ -71,11 +71,13 @@ class Map
         }
     }
 
-    public function getCreatures(): Generator
+    public function getEntityOnType(string $type): Generator
     {
-        foreach ($this->entities as $entity) {
-            if ($entity instanceof AbstractCreature) {
-                yield $entity;
+        foreach ($this->entities as $coordinate) {
+            $entity = $this->getEntity($coordinate);
+
+            if ($entity instanceof $type) {
+                yield $coordinate;
             }
         }
     }

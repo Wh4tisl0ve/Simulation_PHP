@@ -18,8 +18,7 @@ class ConsoleRenderer implements RendererInterface
                     echo "\t🏾";
                 } else {
                     $entity = $map->getEntity($coordinate);
-                    $entityName = basename(str_replace('\\', '/', $entity::class));
-                    $icon = $this->getIcon($entityName);
+                    $icon = $this->getIcon($entity::class);
                     echo "\t$icon";
                 }
             }
@@ -31,11 +30,11 @@ class ConsoleRenderer implements RendererInterface
     public function getIcon(string $className): string
     {
         $icons = [
-            "Rock" => "⛰️",
-            "Deer" => "🦌",
-            "Grass" => "🌾",
-            "Tree" => "🌳",
-            "Wolf" => "🐺"
+            "App\Entity\Static\Rock" => "⛰️",
+            "App\Entity\Static\Grass" => "🌾",
+            "App\Entity\Static\Tree" => "🌳",
+            "App\Entity\Dynamic\Herbivore\Deer" => "🦌",
+            "App\Entity\Dynamic\Predator\Wolf" => "🐺"
         ];
 
         if (!array_key_exists($className, $icons)) {
