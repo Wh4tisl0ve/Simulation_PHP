@@ -9,10 +9,16 @@ class ConsoleRenderer implements RendererInterface
 {
     public function render(Map $map): void
     {
-        [$height, $width] = $map->getSize();
+        [$width, $height] = $map->getSize();
 
-        for ($i = 0; $i < $height; $i++) {
-            for ($j = 0; $j < $width; $j++) {
+        for ($i = 0; $i < $height; $i++){
+            echo "\t" . $i;
+        }
+        echo "\n";
+
+        for ($i = 0; $i < $width; $i++) {
+            echo $i;
+            for ($j = 0; $j < $height; $j++) {
                 $coordinate = new Coordinate($i, $j);
                 if ($map->isEmptyCoordinate($coordinate)) {
                     echo "\t🏾";

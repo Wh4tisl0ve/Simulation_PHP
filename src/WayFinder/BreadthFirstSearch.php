@@ -3,6 +3,8 @@
 namespace App\WayFinder;
 
 use App\Entity\Coordinate;
+use App\Map\EntityStorage;
+
 
 class BreadthFirstSearch extends AbstractWayFinder
 {
@@ -12,16 +14,27 @@ class BreadthFirstSearch extends AbstractWayFinder
         $searchQueue = [];
         $searchQueue[] = $startCoordinate;
 
-        while (!$searchQueue) {
-            $coordinate = array_pop($searchQueue);
+        while (!empty($searchQueue)) {
+            $currentCoordinate = array_pop($searchQueue);
+            $visited[] = $currentCoordinate;
+            $coordinateParentMap = new EntityStorage;
 
-            if ($coordinate === $goalCoordinate) {
+            if ($currentCoordinate === $goalCoordinate) {
                 # build path
                 return [];
             }
 
-            $moves = $this->getMoves($coordinate);
+            $moves = $this->getMoves($currentCoordinate);
+            foreach ($moves as $move) {
+                if ($this->map->isEmptyCoordinate($move) && $this->map->isValidCoordinate($move)) {
+                    if (!in_array($move, $visited)) {
+                        $searchQueue[] = $move;
+                        $coordinateParentMap[$move] = $currentCoordinate;
+                    }
+                }
+            }
         }
+
         return [];
     }
 }

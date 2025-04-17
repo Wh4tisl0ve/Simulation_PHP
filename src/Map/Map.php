@@ -4,21 +4,20 @@ namespace App\Map;
 
 use Exception;
 use Generator;
-use App\Entity\Dynamic\AbstractCreature;
 use App\Entity\Coordinate;
 use App\Entity\AbstractEntity;
 
 class Map
 {
     private EntityStorage $entities;
-    private int $height;
     private int $width;
+    private int $height;
 
-    function __construct(int $height, int $width)
+    function __construct(int $width, int $height)
     {
         $this->entities = new EntityStorage;
-        $this->height = $height;
         $this->width = $width;
+        $this->height = $height;
     }
 
     public function addEntity(Coordinate $coordinate, AbstractEntity $entity): void
@@ -47,16 +46,15 @@ class Map
 
     public function getSize(): array
     {
-        return [$this->height, $this->width];
+        return [$this->width, $this->height];
     }
 
     public function getEmptyCoordinate(): Coordinate
     {
-        [$height, $width] = $this->getSize();
-        $mapSquare = $height * $width;
+        $mapSquare = $this->height * $this->width;
 
-        $x = rand(0, $height);
-        $y = rand(0, $width);
+        $x = rand(0, $this->width);
+        $y = rand(0, $this->height);
 
         $coordinate = new Coordinate($x, $y);
 
@@ -64,7 +62,7 @@ class Map
             throw new Exception('Нет пустых координат на карте');
         }
 
-        if ($this->isEmptyCoordinate($coordinate)) {
+        if ($this->isEmptyCoordinate($coordinate) && $this->isValidCoordinate($coordinate)) {
             return $coordinate;
         } else {
             return $this->getEmptyCoordinate();
@@ -85,5 +83,11 @@ class Map
     public function isEmptyCoordinate(Coordinate $coordinate): bool
     {
         return !($this->entities->contains($coordinate));
+    }
+
+    public function isValidCoordinate(Coordinate $coordinate): bool
+    {
+        [$x, $y] = $coordinate->getCoordinates();
+        return ($x >= 0 && $x < $this->width) && ($y >= 0 && $y < $this->height);
     }
 }
