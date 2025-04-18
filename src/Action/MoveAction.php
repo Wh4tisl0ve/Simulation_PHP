@@ -30,6 +30,7 @@ class MoveAction extends AbstractAction
 
             foreach ($foods as $goalCoordinate) {
                 $way = $this->wayFinder->findWay($startCoordinate, $goalCoordinate);
+                print_r($way);
                 if (count($way) < count($minWay) && !empty($way)) {
                     $minWay = $way;
                 }
@@ -37,6 +38,7 @@ class MoveAction extends AbstractAction
                     break;
                 }
             }
+
 
             $creature->makeMove($minWay, $this->map);
         }
