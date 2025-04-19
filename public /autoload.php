@@ -8,6 +8,6 @@ spl_autoload_register(function ($className) {
     if (file_exists($filepath)) {
         require_once $filepath;
     } else {
-        echo "Файл для класса {$className} не найден по пути {$filepath}" . PHP_EOL;
+        echo "Файл для класса $className не найден по пути $filepath" . PHP_EOL;
     }
 });

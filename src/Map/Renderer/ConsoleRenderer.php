@@ -9,17 +9,22 @@ class ConsoleRenderer implements RendererInterface
 {
     public function render(Map $map): void
     {
-        [$height, $width] = $map->getSize();
+        [$width, $height] = $map->getSize();
 
-        for ($i = 0; $i < $height; $i++) {
-            for ($j = 0; $j < $width; $j++) {
+        for ($i = 0; $i < $height; $i++){
+            echo "\t" . $i;
+        }
+        echo "\n";
+
+        for ($i = 0; $i < $width; $i++) {
+            echo $i;
+            for ($j = 0; $j < $height; $j++) {
                 $coordinate = new Coordinate($i, $j);
                 if ($map->isEmptyCoordinate($coordinate)) {
                     echo "\t🏾";
                 } else {
                     $entity = $map->getEntity($coordinate);
-                    $entityName = basename(str_replace('\\', '/', $entity::class));
-                    $icon = $this->getIcon($entityName);
+                    $icon = $this->getIcon($entity::class);
                     echo "\t$icon";
                 }
             }
@@ -31,11 +36,11 @@ class ConsoleRenderer implements RendererInterface
     public function getIcon(string $className): string
     {
         $icons = [
-            "Rock" => "⛰️",
-            "Deer" => "🦌",
-            "Grass" => "🌾",
-            "Tree" => "🌳",
-            "Wolf" => "🐺"
+            "App\Entity\Static\Rock" => "⛰️",
+            "App\Entity\Static\Grass" => "🌾",
+            "App\Entity\Static\Tree" => "🌳",
+            "App\Entity\Dynamic\Herbivore\Deer" => "🦌",
+            "App\Entity\Dynamic\Predator\Wolf" => "🐺"
         ];
 
         if (!array_key_exists($className, $icons)) {
