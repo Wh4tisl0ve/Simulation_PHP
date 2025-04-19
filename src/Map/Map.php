@@ -69,15 +69,17 @@ class Map
         }
     }
 
-    public function getEntityOnType(string $type): Generator
+    public function getEntitiesOnType(string $type): array
     {
+        $entities = [];
         foreach ($this->entities as $coordinate) {
             $entity = $this->getEntity($coordinate);
 
             if ($entity instanceof $type) {
-                yield $coordinate;
+                $entities[] = $coordinate;
             }
         }
+        return $entities;
     }
 
     public function isEmptyCoordinate(Coordinate $coordinate): bool
