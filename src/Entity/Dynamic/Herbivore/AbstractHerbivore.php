@@ -12,6 +12,17 @@ abstract class AbstractHerbivore extends AbstractCreature
 
     public function makeMove(array $way, Map $map): void
     {
-        return;
+        $currentCoordinate = array_shift($way);
+        $goalCoordinate = $way[count($way) - 1];
+
+        if ($this->speed < count($way)) {
+            $goalCoordinate = $way[$this->speed - 1];
+        }
+        else{
+            $map->removeEntity($goalCoordinate);
+        }
+
+        $map->removeEntity($currentCoordinate);
+        $map->addEntity($goalCoordinate, $this);
     }
 }

@@ -19,12 +19,11 @@ class MoveAction extends AbstractAction
 
     public function perform(): void
     {
-        $creatures = $this->map->getEntityOnType(AbstractCreature::class);
+        $creatures = $this->map->getEntitiesOnType(AbstractCreature::class);
 
         foreach ($creatures as $startCoordinate) {
             $creature = $this->map->getEntity($startCoordinate);
-            $foods = $this->map->getEntityOnType($creature->getFood());
-
+            $foods = $this->map->getEntitiesOnType($creature->getFood());
             $minWay = [];
 
             foreach ($foods as $goalCoordinate) {
@@ -35,7 +34,7 @@ class MoveAction extends AbstractAction
                     break;
                 }
 
-                if (empty($minWay)) {
+                if (empty($minWay) && !empty($way)) {
                     $minWay = $way;
                 }
 
@@ -43,7 +42,9 @@ class MoveAction extends AbstractAction
                     $minWay = $way;
                 }
             }
-            $creature->makeMove($minWay, $this->map);
+            if (!empty($minWay)) {
+                $creature->makeMove($minWay, $this->map);
+            }
         }
     }
 }
