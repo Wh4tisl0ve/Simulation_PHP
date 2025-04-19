@@ -23,23 +23,26 @@ class MoveAction extends AbstractAction
 
         foreach ($creatures as $startCoordinate) {
             $creature = $this->map->getEntity($startCoordinate);
-
             $foods = $this->map->getEntityOnType($creature->getFood());
 
             $minWay = [];
 
             foreach ($foods as $goalCoordinate) {
                 $way = $this->wayFinder->findWay($startCoordinate, $goalCoordinate);
-                print_r($way);
-                if (count($way) < count($minWay) && !empty($way)) {
+
+                if (count($way) == 2) {
                     $minWay = $way;
-                }
-                if (count($minWay) == 1) {
                     break;
                 }
+
+                if (empty($minWay)) {
+                    $minWay = $way;
+                }
+
+                if (count($minWay) > count($way) && !empty($way)) {
+                    $minWay = $way;
+                }
             }
-
-
             $creature->makeMove($minWay, $this->map);
         }
     }

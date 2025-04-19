@@ -15,11 +15,11 @@ class BreadthFirstSearch extends AbstractWayFinder
         $coordinateParentMap = new EntityStorage;
 
         while (!empty($searchQueue)) {
-            $currentCoordinate = array_pop($searchQueue);
+            $currentCoordinate = array_shift($searchQueue);
             $visited[] = $currentCoordinate;
 
             if ($currentCoordinate == $goalCoordinate) {
-                return $this->buildPath($coordinateParentMap,$startCoordinate, $goalCoordinate);
+                return $this->buildPath($coordinateParentMap, $goalCoordinate);
             }
 
             $moves = $this->getMoves($currentCoordinate);
@@ -37,12 +37,12 @@ class BreadthFirstSearch extends AbstractWayFinder
         return [];
     }
 
-    public function buildPath(EntityStorage $coordinateParentMap, Coordinate $startCoordinate, Coordinate $goalCoordinate): array
+    public function buildPath(EntityStorage $coordinateParentMap, Coordinate $goalCoordinate): array
     {
-        $current = $goalCoordinate;
         $path = [];
+        $current = $goalCoordinate;
 
-        while($current != $startCoordinate){
+        while ($coordinateParentMap->offsetExists($current)) {
             $current = $coordinateParentMap[$current];
             array_unshift($path, $current);
         }
