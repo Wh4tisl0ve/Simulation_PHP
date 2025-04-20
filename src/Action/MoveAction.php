@@ -20,30 +20,35 @@ class MoveAction extends AbstractAction
     public function perform(): void
     {
         $creatures = $this->map->getEntitiesOnType(AbstractCreature::class);
+        $moved = [];
 
         foreach ($creatures as $startCoordinate) {
             $creature = $this->map->getEntity($startCoordinate);
-            $foods = $this->map->getEntitiesOnType($creature->getFood());
-            $minWay = [];
 
-            foreach ($foods as $goalCoordinate) {
-                $way = $this->wayFinder->findWay($startCoordinate, $goalCoordinate);
+            if (!in_array($creature, $moved, true)) {
+                $foods = $this->map->getEntitiesOnType($creature->getFood());
+                $minWay = [];
 
-                if (count($way) == 2) {
-                    $minWay = $way;
-                    break;
+                foreach ($foods as $goalCoordinate) {
+                    $way = $this->wayFinder->findWay($startCoordinate, $goalCoordinate);
+
+                    if (count($way) == 2) {
+                        $minWay = $way;
+                        break;
+                    }
+
+                    if (empty($minWay) && !empty($way)) {
+                        $minWay = $way;
+                    }
+
+                    if (count($minWay) > count($way) && !empty($way)) {
+                        $minWay = $way;
+                    }
                 }
-
-                if (empty($minWay) && !empty($way)) {
-                    $minWay = $way;
+                if (!empty($minWay)) {
+                    $creature->makeMove($minWay, $this->map);
+                    $moved[] = $creature;
                 }
-
-                if (count($minWay) > count($way) && !empty($way)) {
-                    $minWay = $way;
-                }
-            }
-            if (!empty($minWay)) {
-                $creature->makeMove($minWay, $this->map);
             }
         }
     }
