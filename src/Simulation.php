@@ -23,9 +23,10 @@ class Simulation
     public function startSimulation(): void
     {
         $this->performActions($this->initActions);
+        $this->renderer->render($this->map);
         while (true) {
-            $this->renderer->render($this->map);
             $this->performActions($this->turnActions);
+            $this->renderer->render($this->map);
             sleep(3);
         }
     }

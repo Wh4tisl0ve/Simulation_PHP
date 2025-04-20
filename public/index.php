@@ -24,10 +24,10 @@ $spawnRates = json_decode(file_get_contents("../data/spawn_rates.json"), true);
 
 $initActions = [
     new TreeSpawnAction($spawnRates['Tree'], $map),
-    #new RockSpawnAction($spawnRates['Rock'], $map),
+    new RockSpawnAction($spawnRates['Rock'], $map),
     new DeerSpawnAction($spawnRates['Deer'], $map),
     new GrassSpawnAction($spawnRates['Grass'], $map),
-    #new WolfSpawnAction($spawnRates['Wolf'], $map),
+    new WolfSpawnAction($spawnRates['Wolf'], $map),
 ];
 $turnActions = [
     new MoveAction($map, $wayFinder),

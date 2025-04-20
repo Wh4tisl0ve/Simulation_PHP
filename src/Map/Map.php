@@ -25,6 +25,9 @@ class Map
         if (!$this->isEmptyCoordinate($coordinate)) {
             throw new Exception('Координата занята!');
         }
+        if(!$this->isValidCoordinate($coordinate)){
+            throw new Exception('Координата находится за пределами карты!');
+        }
         $this->entities[$coordinate] = $entity;
     }
 
