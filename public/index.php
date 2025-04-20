@@ -2,18 +2,12 @@
 
 include "autoload.php";
 
+use App\Action\MoveAction;
+use App\Action\SpawnAction\{DeerSpawnAction, GrassSpawnAction, RockSpawnAction, TreeSpawnAction, WolfSpawnAction};
 use App\Map\Map;
 use App\Map\Renderer\ConsoleRenderer;
-use App\WayFinder\BreadthFirstSearch;
-use App\Action\SpawnAction\{
-    TreeSpawnAction,
-    RockSpawnAction,
-    DeerSpawnAction,
-    GrassSpawnAction,
-    WolfSpawnAction
-};
-use App\Action\MoveAction;
 use App\Simulation;
+use App\WayFinder\BreadthFirstSearch;
 
 
 $map = new Map(5, 5);

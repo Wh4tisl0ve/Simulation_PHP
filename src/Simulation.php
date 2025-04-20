@@ -31,11 +31,6 @@ class Simulation
         }
     }
 
-    public function pauseSimulation(): void
-    {
-        return;
-    }
-
     private function performActions(array $actions): void
     {
         foreach ($actions as $action) {

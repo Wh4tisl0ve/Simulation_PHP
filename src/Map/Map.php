@@ -3,7 +3,6 @@
 namespace App\Map;
 
 use Exception;
-use Generator;
 use App\Entity\Coordinate;
 use App\Entity\AbstractEntity;
 
