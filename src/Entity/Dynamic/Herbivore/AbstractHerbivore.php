@@ -12,6 +12,23 @@ abstract class AbstractHerbivore extends AbstractCreature
 
     public function makeMove(array $way, Map $map): void
     {
-        return;
+        $currentCoordinate = $way[0];
+        $goalCoordinate = $way[count($way) - 1];
+
+        if (count($way) - 2 >= $this->speed) {
+            $this->migrate($way, $map);
+        } else {
+            $this->eat($currentCoordinate, $goalCoordinate, $map);
+        }
+    }
+
+    public function setHealthPoint(int $healthPoint): void
+    {
+        $this->healthPoint = $healthPoint;
+    }
+
+    public function getHealthPoint(): int
+    {
+        return $this->healthPoint;
     }
 }

@@ -25,6 +25,9 @@ class Map
         if (!$this->isEmptyCoordinate($coordinate)) {
             throw new Exception('Координата занята!');
         }
+        if(!$this->isValidCoordinate($coordinate)){
+            throw new Exception('Координата находится за пределами карты!');
+        }
         $this->entities[$coordinate] = $entity;
     }
 
@@ -69,15 +72,17 @@ class Map
         }
     }
 
-    public function getEntityOnType(string $type): Generator
+    public function getEntitiesOnType(string $type): array
     {
+        $entities = [];
         foreach ($this->entities as $coordinate) {
             $entity = $this->getEntity($coordinate);
 
             if ($entity instanceof $type) {
-                yield $coordinate;
+                $entities[] = $coordinate;
             }
         }
+        return $entities;
     }
 
     public function isEmptyCoordinate(Coordinate $coordinate): bool
