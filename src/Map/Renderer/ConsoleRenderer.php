@@ -21,7 +21,7 @@ class ConsoleRenderer implements RendererInterface
             for ($j = 0; $j < $height; $j++) {
                 $coordinate = new Coordinate($i, $j);
                 if ($map->isEmptyCoordinate($coordinate)) {
-                    echo "\t🏾";
+                    echo "\t🏻";
                 } else {
                     $entity = $map->getEntity($coordinate);
                     $icon = $this->getIcon($entity::class);

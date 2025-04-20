@@ -10,11 +10,11 @@ use App\Simulation;
 use App\WayFinder\BreadthFirstSearch;
 
 
-$map = new Map(5, 5);
+$map = new Map(7, 7);
 $consoleRenderer = new ConsoleRenderer();
 $wayFinder = new BreadthFirstSearch($map);
 
-$spawnRates = json_decode(file_get_contents("../data/spawn_rates.json"), true);
+$spawnRates = json_decode(file_get_contents(__DIR__ . "/../data/spawn_rates.json"), true);
 
 $initActions = [
     new TreeSpawnAction($spawnRates['Tree'], $map),
