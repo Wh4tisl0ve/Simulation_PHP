@@ -2,6 +2,6 @@
 
 namespace App\Entity\Static;
 
-use App\Entity\Entity;
+use App\Entity\AbstractEntity;
 
-class Grass extends Entity{}
+class Grass extends AbstractEntity{}

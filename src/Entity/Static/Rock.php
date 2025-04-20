@@ -2,6 +2,6 @@
 
 namespace App\Entity\Static;
 
-use App\Entity\Entity;
+use App\Entity\AbstractEntity;
 
-class Rock extends Entity{}
+class Rock extends AbstractEntity{}
